@@ -8,7 +8,8 @@
     "start": "npx hardhat node",
     "console": "npx hardhat console",
     "test": "npx hardhat test",
-    "compile": "npx hardhat compile"
+    "compile": "npx hardhat compile",
+    "deploy": "npx hardhat run scripts/deploy.ts"
   },
   "keywords": [],
   "author": "",

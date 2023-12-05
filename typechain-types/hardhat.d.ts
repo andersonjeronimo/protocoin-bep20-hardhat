@@ -42,10 +42,6 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC20__factory>;
     getContractFactory(
-      name: "MyToken",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.MyToken__factory>;
-    getContractFactory(
       name: "ProtoCoin",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ProtoCoin__factory>;
@@ -86,11 +82,6 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IERC20>;
     getContractAt(
-      name: "MyToken",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.MyToken>;
-    getContractAt(
       name: "ProtoCoin",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -124,10 +115,6 @@ declare module "hardhat/types/runtime" {
       name: "IERC20",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IERC20>;
-    deployContract(
-      name: "MyToken",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.MyToken>;
     deployContract(
       name: "ProtoCoin",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -168,11 +155,6 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IERC20>;
-    deployContract(
-      name: "MyToken",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.MyToken>;
     deployContract(
       name: "ProtoCoin",
       args: any[],

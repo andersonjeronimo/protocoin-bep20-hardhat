@@ -1,4 +1,4 @@
-import { loadFixture } from "@nomicfoundation/hardhat-toolbox/network-helpers";
+import { loadFixture, time } from "@nomicfoundation/hardhat-toolbox/network-helpers";
 import { expect } from "chai";
 import { ethers } from "hardhat";
 
@@ -104,4 +104,43 @@ describe("Protocoin Tests", function () {
     await expect(instance.transferFrom(owner.address, otherAccount.address, 1n))
       .to.be.revertedWithCustomError(protocoin, "ERC20InsufficientAllowance");
   });
+
+  it("Should mint once", async function () {
+    const { protocoin, owner, otherAccount } = await loadFixture(deployFixture);    
+    const mintAmount = 1000n;
+    await protocoin.setMintAmount(mintAmount);
+    
+    const balanceBefore = await protocoin.balanceOf(otherAccount.address);
+    
+    const instance = protocoin.connect(otherAccount);
+    await instance.mint();
+    
+    const balanceAfter = await protocoin.balanceOf(otherAccount.address);
+
+    expect(balanceAfter).to.equal(balanceBefore + mintAmount);    
+  });
+
+  it("Should NOT mint twice", async function () {
+    const { protocoin, owner, otherAccount } = await loadFixture(deployFixture);    
+    const mintAmount = 1000n;
+    await protocoin.setMintAmount(mintAmount);    
+    const instance = protocoin.connect(otherAccount);
+    await instance.mint();      
+
+    await expect(instance.mint()).to.be.revertedWith("You cannot mint twice in a row.");
+  });
+
+  it("Should mint twice (after time delay has been passed)", async function () {
+    const { protocoin, owner, otherAccount } = await loadFixture(deployFixture);    
+    const mintAmount = 1000n;
+    await protocoin.setMintAmount(mintAmount);    
+    const balanceBefore = await protocoin.balanceOf(owner.address);    
+    await protocoin.mint();
+    const mintDelay = 60 * 60 * 24 * 2;//dois dias em segundos
+    await time.increase(mintDelay);
+    await protocoin.mint();
+    const balanceAfter = await protocoin.balanceOf(owner.address);
+    expect(balanceAfter).to.equal(balanceBefore + (mintAmount * 2n));
+  });
+
 });
