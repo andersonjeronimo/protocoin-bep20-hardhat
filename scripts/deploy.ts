@@ -1,9 +1,9 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const gibaCoin = await ethers.deployContract("GibaCoin");
-  await gibaCoin.waitForDeployment();
-  const address = await gibaCoin.getAddress();
+  const bitProtoCoin = await ethers.deployContract("BitProtoCoin");
+  await bitProtoCoin.waitForDeployment();
+  const address = await bitProtoCoin.getAddress();
 
   console.log(`Contract deployed at ${address}`);
 }

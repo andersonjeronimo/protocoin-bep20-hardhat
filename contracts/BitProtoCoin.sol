@@ -3,13 +3,13 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract GibaCoin is ERC20 {
+contract BitProtoCoin is ERC20 {
     address private _owner;
     uint256 private _mintAmount = 0;
     uint64 private _mintDelay = 60 * 60 * 24;
     mapping (address => uint256) nextMint;    
 
-    constructor() ERC20("GibaCoin", unicode"G₿C") {
+    constructor() ERC20("BitProtoCoin", unicode"₿PC") {
         _owner = msg.sender;
         _mint(msg.sender, 1000 * 10 ** 18);
     }

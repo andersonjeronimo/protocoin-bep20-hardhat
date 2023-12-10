@@ -42,6 +42,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC20__factory>;
     getContractFactory(
+      name: "BitProtoCoin",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.BitProtoCoin__factory>;
+    getContractFactory(
       name: "GibaCoin",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.GibaCoin__factory>;
@@ -82,6 +86,11 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IERC20>;
     getContractAt(
+      name: "BitProtoCoin",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.BitProtoCoin>;
+    getContractAt(
       name: "GibaCoin",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -116,6 +125,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IERC20>;
     deployContract(
+      name: "BitProtoCoin",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.BitProtoCoin>;
+    deployContract(
       name: "GibaCoin",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.GibaCoin>;
@@ -155,6 +168,11 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IERC20>;
+    deployContract(
+      name: "BitProtoCoin",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.BitProtoCoin>;
     deployContract(
       name: "GibaCoin",
       args: any[],

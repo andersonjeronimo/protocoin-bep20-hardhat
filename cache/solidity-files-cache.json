@@ -228,10 +228,10 @@
         "IERC20Metadata"
       ]
     },
-    "C:\\NodeProjects\\protocoin-bep20-hardhat\\contracts\\GibaCoin.sol": {
-      "lastModificationDate": 1701814035521,
-      "contentHash": "84705764387993d30dd7c5a567f9d80a",
-      "sourceName": "contracts/GibaCoin.sol",
+    "C:\\NodeProjects\\protocoin-bep20-hardhat\\contracts\\BitProtoCoin.sol": {
+      "lastModificationDate": 1702215995624,
+      "contentHash": "41930ebd372d18ad5e8516e5a601def5",
+      "sourceName": "contracts/BitProtoCoin.sol",
       "solcConfig": {
         "version": "0.8.20",
         "settings": {
@@ -263,7 +263,7 @@
         "^0.8.20"
       ],
       "artifacts": [
-        "GibaCoin"
+        "BitProtoCoin"
       ]
     }
   }
