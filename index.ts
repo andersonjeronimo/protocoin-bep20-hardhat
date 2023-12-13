@@ -1,3 +1,5 @@
+const contract = 0xc45FD1bC5991672465480BA95081F9e7c58129A0;
+
 let matrix: number[][] = [
     [0, 0, 0, 0, 1],
     [0, 0, 1, 0, 1],

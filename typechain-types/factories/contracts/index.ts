@@ -2,4 +2,3 @@
 /* tslint:disable */
 /* eslint-disable */
 export { BitProtoCoin__factory } from "./BitProtoCoin__factory";
-export { GibaCoin__factory } from "./GibaCoin__factory";

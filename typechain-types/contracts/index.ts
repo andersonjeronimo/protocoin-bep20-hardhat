@@ -2,4 +2,3 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { BitProtoCoin } from "./BitProtoCoin";
-export type { GibaCoin } from "./GibaCoin";

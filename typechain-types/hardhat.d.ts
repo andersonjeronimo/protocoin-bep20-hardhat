@@ -45,10 +45,6 @@ declare module "hardhat/types/runtime" {
       name: "BitProtoCoin",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.BitProtoCoin__factory>;
-    getContractFactory(
-      name: "GibaCoin",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.GibaCoin__factory>;
 
     getContractAt(
       name: "Ownable",
@@ -90,11 +86,6 @@ declare module "hardhat/types/runtime" {
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.BitProtoCoin>;
-    getContractAt(
-      name: "GibaCoin",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.GibaCoin>;
 
     deployContract(
       name: "Ownable",
@@ -128,10 +119,6 @@ declare module "hardhat/types/runtime" {
       name: "BitProtoCoin",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.BitProtoCoin>;
-    deployContract(
-      name: "GibaCoin",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.GibaCoin>;
 
     deployContract(
       name: "Ownable",
@@ -173,11 +160,6 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.BitProtoCoin>;
-    deployContract(
-      name: "GibaCoin",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.GibaCoin>;
 
     // default types
     getContractFactory(

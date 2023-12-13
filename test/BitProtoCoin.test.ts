@@ -34,13 +34,13 @@ describe("BitProtoCoin Tests", function () {
   it("Should have total suply", async function () {
     const { bitProtoCoin, owner, otherAccount } = await loadFixture(deployFixture);
     const totalSuply = await bitProtoCoin.totalSupply();
-    expect(totalSuply).to.equal(1000n * 10n ** 18n);
+    expect(totalSuply).to.equal(10000000n * 10n ** 18n);
   });
 
   it("Should get balance", async function () {
     const { bitProtoCoin, owner, otherAccount } = await loadFixture(deployFixture);
     const balance = await bitProtoCoin.balanceOf(owner.address);
-    expect(balance).to.equal(1000n * 10n ** 18n);
+    expect(balance).to.equal(10000000n * 10n ** 18n);
   });
 
   it("Should transfer balance", async function () {
@@ -50,9 +50,8 @@ describe("BitProtoCoin Tests", function () {
     await bitProtoCoin.transfer(otherAccount.address, 1n);
     const ownerBalanceAfter = await bitProtoCoin.balanceOf(owner.address);
     const otherAccountBalanceAfter = await bitProtoCoin.balanceOf(otherAccount.address);
-
-    expect(ownerBalance).to.equal(1000n * 10n ** 18n);
-    expect(ownerBalanceAfter).to.equal((1000n * 10n ** 18n) - 1n);
+    expect(ownerBalance).to.equal(10000000n * 10n ** 18n);
+    expect(ownerBalanceAfter).to.equal((10000000n * 10n ** 18n) - 1n);
     expect(otherAccountBalance).to.equal(0);
     expect(otherAccountBalanceAfter).to.equal(1n);
   });
@@ -73,21 +72,16 @@ describe("BitProtoCoin Tests", function () {
 
   it("Should transfer from", async function () {
     const { bitProtoCoin, owner, otherAccount } = await loadFixture(deployFixture);
-
     const ownerBalance = await bitProtoCoin.balanceOf(owner.address);
     const otherAccountBalance = await bitProtoCoin.balanceOf(otherAccount.address);
     await bitProtoCoin.approve(otherAccount.address, 10n);
-
     const instance = bitProtoCoin.connect(otherAccount);
     await instance.transferFrom(owner.address, otherAccount.address, 5n);
-
     const allowance = await bitProtoCoin.allowance(owner.address, otherAccount.address);
-
     const ownerBalanceAfter = await bitProtoCoin.balanceOf(owner.address);
     const otherAccountBalanceAfter = await bitProtoCoin.balanceOf(otherAccount.address);
-
-    expect(ownerBalance).to.equal(1000n * 10n ** 18n);
-    expect(ownerBalanceAfter).to.equal((1000n * 10n ** 18n) - 5n);
+    expect(ownerBalance).to.equal(10000000n * 10n ** 18n);
+    expect(ownerBalanceAfter).to.equal((10000000n * 10n ** 18n) - 5n);
     expect(otherAccountBalance).to.equal(0);
     expect(otherAccountBalanceAfter).to.equal(5n);
     expect(allowance).to.equal(5n);
@@ -109,52 +103,50 @@ describe("BitProtoCoin Tests", function () {
   });
 
   it("Should mint once", async function () {
-    const { bitProtoCoin, owner, otherAccount } = await loadFixture(deployFixture);    
+    const { bitProtoCoin, owner, otherAccount } = await loadFixture(deployFixture);
     const mintAmount = 1000n;
     await bitProtoCoin.setMintAmount(mintAmount);
-    
     const balanceBefore = await bitProtoCoin.balanceOf(otherAccount.address);
-    
-    const instance = bitProtoCoin.connect(otherAccount);
-    await instance.mint();
-    
+    //const instance = bitProtoCoin.connect(otherAccount);    
+    //await instance.mint();
+    await bitProtoCoin.mint(otherAccount.address);
     const balanceAfter = await bitProtoCoin.balanceOf(otherAccount.address);
-
-    expect(balanceAfter).to.equal(balanceBefore + mintAmount);    
+    expect(balanceAfter).to.equal(balanceBefore + mintAmount);
   });
 
   it("Should NOT mint twice", async function () {
-    const { bitProtoCoin, owner, otherAccount } = await loadFixture(deployFixture);    
+    const { bitProtoCoin, owner, otherAccount } = await loadFixture(deployFixture);
     const mintAmount = 1000n;
-    await bitProtoCoin.setMintAmount(mintAmount);    
-    const instance = bitProtoCoin.connect(otherAccount);
-    await instance.mint();      
-
-    await expect(instance.mint()).to.be.revertedWith("You cannot mint twice in a row.");
+    await bitProtoCoin.setMintAmount(mintAmount);
+    //const instance = bitProtoCoin.connect(otherAccount);
+    //await instance.mint();
+    await bitProtoCoin.mint(otherAccount.address);
+    await expect(bitProtoCoin.mint(otherAccount.address))
+      .to.be.revertedWith("You cannot mint twice in a row.");
   });
 
   it("Should mint twice (after time delay has been passed)", async function () {
-    const { bitProtoCoin, owner, otherAccount } = await loadFixture(deployFixture);    
+    const { bitProtoCoin, owner, otherAccount } = await loadFixture(deployFixture);
     const mintAmount = 1000n;
-    await bitProtoCoin.setMintAmount(mintAmount);    
-    const balanceBefore = await bitProtoCoin.balanceOf(owner.address);    
-    await bitProtoCoin.mint();
+    await bitProtoCoin.setMintAmount(mintAmount);
+    const balanceBefore = await bitProtoCoin.balanceOf(owner.address);
+    await bitProtoCoin.mint(owner.address);
     const mintDelay = 60 * 60 * 24 * 2;//dois dias em segundos
     await time.increase(mintDelay);
-    await bitProtoCoin.mint();
+    await bitProtoCoin.mint(owner.address);
     const balanceAfter = await bitProtoCoin.balanceOf(owner.address);
     expect(balanceAfter).to.equal(balanceBefore + (mintAmount * 2n));
   });
 
   it("Should NOT set mint amount", async function () {
-    const { bitProtoCoin, owner, otherAccount } = await loadFixture(deployFixture);    
+    const { bitProtoCoin, owner, otherAccount } = await loadFixture(deployFixture);
     const mintAmount = 1000n;
     const instance = bitProtoCoin.connect(otherAccount);
     await expect(instance.setMintAmount(mintAmount)).to.be.revertedWith("You don't have permission.");
   });
 
   it("Should NOT set mint delay", async function () {
-    const { bitProtoCoin, owner, otherAccount } = await loadFixture(deployFixture);    
+    const { bitProtoCoin, owner, otherAccount } = await loadFixture(deployFixture);
     const mintDelay = 60 * 60 * 24;
     const instance = bitProtoCoin.connect(otherAccount);
     await expect(instance.setMintDelay(mintDelay)).to.be.revertedWith("You don't have permission.");
@@ -162,7 +154,8 @@ describe("BitProtoCoin Tests", function () {
 
   it("Should NOT mint (amount equals zero)", async function () {
     const { bitProtoCoin, owner, otherAccount } = await loadFixture(deployFixture);
-    await expect(bitProtoCoin.mint()).to.be.revertedWith("Minting isn't enabled.");
+    await expect(bitProtoCoin.mint(otherAccount.address))
+      .to.be.revertedWith("Minting isn't enabled.");
   });
 
 });

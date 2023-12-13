@@ -55,7 +55,7 @@ export interface BitProtoCoinInterface extends Interface {
     values: [AddressLike]
   ): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
-  encodeFunctionData(functionFragment: "mint", values?: undefined): string;
+  encodeFunctionData(functionFragment: "mint", values: [AddressLike]): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "setMintAmount",
@@ -200,7 +200,7 @@ export interface BitProtoCoin extends BaseContract {
 
   decimals: TypedContractMethod<[], [bigint], "view">;
 
-  mint: TypedContractMethod<[], [void], "nonpayable">;
+  mint: TypedContractMethod<[to: AddressLike], [void], "nonpayable">;
 
   name: TypedContractMethod<[], [string], "view">;
 
@@ -258,7 +258,7 @@ export interface BitProtoCoin extends BaseContract {
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "mint"
-  ): TypedContractMethod<[], [void], "nonpayable">;
+  ): TypedContractMethod<[to: AddressLike], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "name"
   ): TypedContractMethod<[], [string], "view">;
